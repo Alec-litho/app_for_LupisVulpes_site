@@ -15,7 +15,8 @@
         <div class="container mt-5">
             <div class="row d-flex justify-content-center">
                 <div class="col-6 ">
-                    <form>
+                    <form action="{{route('art.store')}}" method="POST">
+                      @csrf
                         <x-imageInput required>
                             <label for="formFile">{{__('Load Art')}}</label>
                             <input class="form-control" type="file" id="formFile">
@@ -23,6 +24,18 @@
                         <div class="form-group">
                           <label for="exampleFormControlInput1">{{__('Characters')}}</label>
                           <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="{{__('character1, character2')}}">
+                        </div>
+                        <div class="form-group">
+                          <label for="showInp">{{__('Show')}}</label>
+                          <input type="text" class="form-control" id="showInp" placeholder="{{__('show')}}">
+                        </div>
+                        <div class="form-group">
+                          <label for="tradOrdigit">{{__('Traditional or digital art')}}</label>
+                          <input type="text" class="form-control" id="tradOrdigit" placeholder="{{__('traditional/digital')}}">
+                        </div>
+                        <div class="form-group">
+                          <label for="fandom">{{__('Fandom')}}</label>
+                          <input type="text" class="form-control" id="fandom" placeholder="{{__('fandom')}}">
                         </div>
                         <div class="form-group">
                           <label for="exampleFormControlSelect1">{{__('Year')}}</label>
@@ -46,6 +59,10 @@
                           <label for="exampleFormControlTextarea1">{{__('description')}}</label>
                           <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                         </div>
+                        <div class="btn w-100 d-flex justify-content-center">
+                          <button type="submit" class="btn btn-primary w-50 mt-2">Load Image</button>
+                        </div>
+                       
                       </form>
                 </div>
             </div>
