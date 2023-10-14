@@ -17,7 +17,7 @@ c @ props -> <div class="load-image w-100 d-flex justify-content-center w-50"></
 @props(['required' => false])
 
 <div class="load-image w-100 d-flex justify-content-center w-50" {{$attributes->class([$required? 'required' : 'none'])}}>
-    <div class="di">
+    <div class="d-flex justify-content-center">
         {{$slot}}
     </div>
 </div>

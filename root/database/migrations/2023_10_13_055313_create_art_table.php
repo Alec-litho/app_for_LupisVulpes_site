@@ -14,9 +14,10 @@ return new class extends Migration
             $table->year('year');
             $table->text('characters');
             $table->string('show');
-            $table->text('colors');
+            // $table->text('colors');
             $table->string('artType');
             $table->string('fandom');
+            $table->string('link');
         });
     }
     public function down(): void

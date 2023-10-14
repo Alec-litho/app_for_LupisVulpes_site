@@ -17,9 +17,18 @@ class ArtController extends Controller
     }
     public function store(Request $request)
     {
-        $data = request();
+        $data = request()->validate([
+            // 'colors'=>'required',
+            'link'=>'required',
+            'characters'=>'required',
+            'show'=>'required',
+            'fandom'=>'required',
+            'artType'=>'required',
+            'year'=>'required'
+
+        ]);
         Art::create($data);
-        return redirect()->route('/');
+        return redirect()->route('/home');
     }
     public function show(Art $art)
     {
