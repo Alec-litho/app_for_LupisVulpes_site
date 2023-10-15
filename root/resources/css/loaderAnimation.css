@@ -38,3 +38,16 @@
       transform: rotate(360deg);
     }
   }
+.canvas {
+  display: none;
+}
+.imageView {
+  width: 100%;
+  height: auto;
+}
+.palettes {
+  display: grid;
+  grid-template-columns: repeat(16, 100px);
+  grid-template-rows: minmax(2, 100px);
+  background-color: rgb(23, 22, 31);
+}

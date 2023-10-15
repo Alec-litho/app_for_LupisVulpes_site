@@ -18,14 +18,14 @@
                 <div class="col-6 ">
                     <form action="{{route('art.store')}}" method="post" enctype="multipart/form-data">
                       @csrf
-                      <h5 for="formFile">{{__('Load Art')}}</h5>
+                      <h5 for="formFile">{{__('Load Art')}}</h5> 
                         <x-imageInput required>
                             <input name="artFile" class="form-control" type="file" id="formFile" >
                             <div class="lds-ring-hide" id="loader"><div></div><div></div><div></div><div></div></div>
                         </x-imageInput>
                         <div class="form-group d-flex justify-content-center align-content-center gap-2 mt-2 fileResult">
                           <h4 class="text-primary">Result: </h4>
-                          <input type="text" class="form-control w-75 result" placeholder="{{__("result")}}">
+                          <input name="link" type="text" class="form-control w-75 result" placeholder="{{__("result")}}">
                         </div>
                         <div class="form-group">
                           <label for="exampleFormControlInput1">{{__('Characters')}}</label>
@@ -67,8 +67,16 @@
                        
                       </form>
                 </div>
+                <div class="col-6">
+                  <img class="imagePreview" src="https://i.ibb.co/n62thZS/placeholder-image-icon-21.jpg" alt="">
+                  <canvas class="canvas"></canvas>
+                </div>
             </div>
         </div>
+        <div class="palettes">
+          
+        </div>
     </body>
-    <script src="http://localhost/app_for_lupisvulpes-site/root/resources/js/loadImg.js"></script>
+    <script type="module" src="http://localhost/app_for_lupisvulpes-site/root/resources/js/loadImg.js"></script>
+    <script type="module" src="http://localhost/app_for_lupisvulpes-site/root/resources/js/colorPaletteExtracter.js"></script>
 </html>
