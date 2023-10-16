@@ -29,7 +29,7 @@ function findBiggestColorRange(rgbValues) {
     let gMin = Number.MAX_VALUE;
     let bMin = Number.MAX_VALUE;
 
-    let rMax = Number.MIN_VALUE;//0
+    let rMax = Number.MIN_VALUE;//5e-324
     let gMax = Number.MIN_VALUE;
     let bMax = Number.MIN_VALUE;
 
@@ -42,11 +42,9 @@ function findBiggestColorRange(rgbValues) {
         gMax = Math.max(gMax, pixel.g);
         bMax = Math.max(bMax, pixel.b);
     })
-
     const rRange = rMax - rMin;
     const gRange = gMax - gMin;
     const bRange = bMax - bMin;
-
     const biggestRange = Math.max(rRange, gRange, bRange);
     if(biggestRange === rRange) {
         return "r";
@@ -57,14 +55,19 @@ function findBiggestColorRange(rgbValues) {
     }
 };
 
-function quantization(rgbValues, depth) {
-    const MAX_DEPTH = 5;
-    if(depth === MAX_DEPTH || rgbValues.length===0) {
-        const color = rgbValues.reduce((prev,curr) => {
+//Find the color channel ( red, green or blue) in the image with the biggest range.                          
+//Sort pixels by that channel.
+//Divide the list in half.
+//Repeat the process for each half until you have the desired number of colors.
+
+function quantization(rgbValues, depth) {                                  
+    const MAX_DEPTH = 6;
+    if(depth === MAX_DEPTH || rgbValues.length===0) {                      
+        const color = rgbValues.reduce((prev,curr) => {                    
             prev.r += curr.r;
             prev.g += curr.g;
             prev.b += curr.b;
-            return prev
+            return prev//example -> {r: 3208665, g: 3208665, b: 3208665}
         },
         {
             r:0,
@@ -80,6 +83,7 @@ function quantization(rgbValues, depth) {
     }
 
     const colorRange = findBiggestColorRange(rgbValues);
+
     rgbValues.sort((p1,p2) => p1[colorRange] - p2[colorRange]);
     const mid = rgbValues.length / 2;
     return [

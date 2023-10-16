@@ -61,6 +61,9 @@
                         </div>
                         <div class="form-group">
                         </div>
+                        <div class="palettes">
+                          <p >Colors</p>
+                        </div>
                         <div class="btn w-100 d-flex justify-content-center">
                           <button type="submit" class="btn btn-primary w-50 mt-2">Load Image</button>
                         </div>
@@ -72,9 +75,6 @@
                   <canvas class="canvas"></canvas>
                 </div>
             </div>
-        </div>
-        <div class="palettes">
-          
         </div>
     </body>
     <script type="module" src="http://localhost/app_for_lupisvulpes-site/root/resources/js/loadImg.js"></script>
