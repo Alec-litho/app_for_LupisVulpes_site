@@ -1,9 +1,9 @@
-import {extracter} from './colorPaletteExtracter.js';
+import {prominent} from './colorPaletteExtracter.ts';
 
 let resultIsReady = false;
 const palettesBody = document.querySelector('.palettes');
 const loader = document.querySelector('#loader');
-const img = document.querySelector('.form-control').addEventListener('input', e => postImage(e.target));
+document.querySelector('.form-control').addEventListener('input', e => postImage(e.target));
 const resultInp = document.querySelector('.result');
 const imgPreview = document.querySelector('.imagePreview');
 const canvas = document.querySelector('.canvas');
@@ -30,9 +30,11 @@ function postImage (target) {//saves image to 'imgbb.com' server
         .then((res) => res.json()).then((res) => {
           extracter(canvas, this)//EXTRACT COLORS FROM IMAGE
             .then((result) => {
+
               const colors = [{r: 1, g: 1, b: 1}];
               filterColors(result,colors)//it still has same colors !!!!!!!!!
               let filtered = colors.filter(color => color !== false)
+              console.log(result, filtered);
               addPalettes(filtered);
               resultIsReady = true;
               imgPreview.src = res.data.url;
@@ -65,9 +67,10 @@ function postImage (target) {//saves image to 'imgbb.com' server
   }
 
   function addPalettes(colors) {
+    palettesBody.innerHTML = ''//clear colors that left after previous image
     colors.forEach(color => {
       const palette = document.createElement("div");
-      palette.setAttribute("style", `background-color:rgb(${color.r},${color.g},${color.b}); width:25px; height:25px; border:1px solid black`)
+      palette.setAttribute("style", `background-color:rgb(${color.r},${color.g},${color.b}); width:50px; height:50px; border:1px solid #333333;`)
       palettesBody.appendChild(palette)
     })
   }

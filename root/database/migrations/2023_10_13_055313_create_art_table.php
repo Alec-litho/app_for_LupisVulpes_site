@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('artType');
             $table->string('fandom');
             $table->string('link');
+            $table->boolean('isCommission');
         });
     }
     public function down(): void

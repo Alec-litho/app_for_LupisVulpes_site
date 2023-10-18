@@ -61,22 +61,21 @@
                         </div>
                         <div class="form-group">
                         </div>
-                        <div class="palettes">
-                          <p >Colors</p>
-                        </div>
                         <div class="btn w-100 d-flex justify-content-center">
                           <button type="submit" class="btn btn-primary w-50 mt-2">Load Image</button>
                         </div>
                        
                       </form>
                 </div>
-                <div class="col-6">
+                <div class="col-6 flex-column">
                   <img class="imagePreview" src="https://i.ibb.co/n62thZS/placeholder-image-icon-21.jpg" alt="">
+                  <div class="palettes">
+                  </div>
                   <canvas class="canvas"></canvas>
                 </div>
             </div>
         </div>
     </body>
     <script type="module" src="http://localhost/app_for_lupisvulpes-site/root/resources/js/loadImg.js"></script>
-    <script type="module" src="http://localhost/app_for_lupisvulpes-site/root/resources/js/colorPaletteExtracter.js"></script>
+    <script src="http://localhost/app_for_lupisvulpes-site/root/resources/js/colorPaletteExtracter.ts"></script>
 </html>

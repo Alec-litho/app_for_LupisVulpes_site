@@ -46,8 +46,7 @@
   height: auto;
 }
 .palettes {
-  margin: 15px 0;
   display: grid;
-  grid-template-columns: repeat(25, 25px);
-  grid-template-rows: minmax(2, 25px);
+  grid-template-columns: repeat(10, 50px);
+  grid-template-rows: minmax(2, 50px);
 }
