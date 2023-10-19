@@ -43,6 +43,17 @@
                           <label for="fandom">{{__('Fandom')}}</label>
                           <input name="fandom" type="text" class="form-control" id="fandom" placeholder="{{__('fandom')}}">
                         </div>
+                          <div class="form-group d-flex align-items-center gap-4">
+                            <div class="cont d-flex  align-items-center gap-2">
+                              <span class="fs-5" for="isCommision">{{__('isCommision')}}</span>
+                              <input name="isCommission" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                            </div>
+                            <div class="cont  d-flex align-items-center gap-2">
+                              <span class="fs-5" for="isPlushie">{{__('isPlushie')}}</span>
+                              <input name="isPlushie" class="form-check-input" type="checkbox" id="isPlushie">
+                            </div>
+                            
+                        </div>
                         <div class="form-group">
                           <label for="exampleFormControlSelect1">{{__('Year')}}</label>
                           <select name="year" class="form-control" id="exampleFormControlSelect1">
@@ -60,15 +71,16 @@
                           </select>
                         </div>
                         <div class="form-group">
+                          <input name="colors" type="text" class="colors">
                         </div>
                         <div class="btn w-100 d-flex justify-content-center">
-                          <button type="submit" class="btn btn-primary w-50 mt-2">Load Image</button>
+                          <button type="submit" disabled class="btn btn-primary w-50 mt-2">Load Image</button>
                         </div>
                        
                       </form>
                 </div>
                 <div class="col-6 flex-column">
-                  <img class="imagePreview" src="https://i.ibb.co/n62thZS/placeholder-image-icon-21.jpg" alt="">
+                  <img class="imagePreview" src="https://i.ibb.co/2yMxNnQ/placeholder-image-icon-21.jpg" alt="">
                   <div class="palettes">
                   </div>
                   <canvas class="canvas"></canvas>
@@ -76,6 +88,7 @@
             </div>
         </div>
     </body>
+    <script src="../resources/js/color-thief.umd.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script>
     <script type="module" src="http://localhost/app_for_lupisvulpes-site/root/resources/js/loadImg.js"></script>
-    <script src="http://localhost/app_for_lupisvulpes-site/root/resources/js/colorPaletteExtracter.ts"></script>
 </html>

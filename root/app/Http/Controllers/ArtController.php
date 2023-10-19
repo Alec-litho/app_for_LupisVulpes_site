@@ -18,13 +18,15 @@ class ArtController extends Controller
     public function store(Request $request)
     {
         $data = request()->validate([
-            // 'colors'=>'required',
-            'link'=>'required',
-            'characters'=>'required',
-            'show'=>'required',
-            'fandom'=>'required',
-            'artType'=>'required',
-            'year'=>'required'
+            'colors'=>['required','string'],
+            'link'=>['required','string'],
+            'characters'=>['required','string'],
+            'show'=>['required','string'],
+            'fandom'=>['required','string'],
+            'artType'=>['required','string'],
+            'year'=>['required','integer'],
+            'isPlushie'=>['required','boolean'],
+            'isCommission'=>['required','boolean']
 
         ]);
         Art::create($data);

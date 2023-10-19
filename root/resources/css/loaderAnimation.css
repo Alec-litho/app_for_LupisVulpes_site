@@ -46,7 +46,7 @@
   height: auto;
 }
 .palettes {
-  display: grid;
-  grid-template-columns: repeat(10, 50px);
-  grid-template-rows: minmax(2, 50px);
+  display: flex;
+  gap: 5px;
 }
+.colors {display: none;}
