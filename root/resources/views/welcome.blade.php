@@ -14,9 +14,19 @@
     </head>
     <body class="antialiased">
         <div class="container mt-5">
+          @if ($errors->any()) 
+            <div class="d-flex flex-direction-column error">
+              <h1>Error:</h1>
+              @foreach ($errors->all() as $error) {
+                <h5>{{$error}}</h5>
+              }
+              @endforeach
+            </div>
+          @endif
+
             <div class="row d-flex justify-content-center">
                 <div class="col-6 ">
-                    <form action="{{route('art.store')}}" method="post" enctype="multipart/form-data">
+                    <form action="{{route('art.store')}}" method="post" enctype="multipart/form-data" class="form">
                       @csrf
                       <h5 for="formFile">{{__('Load Art')}}</h5> 
                         <x-imageInput required>
@@ -46,18 +56,18 @@
                           <div class="form-group d-flex align-items-center gap-4">
                             <div class="cont d-flex  align-items-center gap-2">
                               <span class="fs-5" for="isCommision">{{__('isCommision')}}</span>
-                              <input name="isCommission" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                              <input name="isCommission" class="form-check-input" type="checkbox" value="true" id="isCommission">
                             </div>
                             <div class="cont  d-flex align-items-center gap-2">
                               <span class="fs-5" for="isPlushie">{{__('isPlushie')}}</span>
-                              <input name="isPlushie" class="form-check-input" type="checkbox" id="isPlushie">
+                              <input name="isPlushie" class="form-check-input" type="checkbox" value="true" id="isPlushie">
                             </div>
                             
                         </div>
                         <div class="form-group">
                           <label for="exampleFormControlSelect1">{{__('Year')}}</label>
                           <select name="year" class="form-control" id="exampleFormControlSelect1">
-                            <option>2010</option>
+                            <option value="2010">2010</option>
                             <option>2011</option>
                             <option>2012</option>
                             <option>2013</option>
@@ -89,6 +99,6 @@
         </div>
     </body>
     <script src="../resources/js/color-thief.umd.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script> --}}
     <script type="module" src="http://localhost/app_for_lupisvulpes-site/root/resources/js/loadImg.js"></script>
 </html>

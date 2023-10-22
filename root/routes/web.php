@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArtController;
 Route::get('/', function () {
-    return view('welcome', ['name'=>'Oleg']);
+    return view('welcome', ['name'=>'Oleg']); 
 })->name('/home');
 
 

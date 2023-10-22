@@ -17,6 +17,9 @@ class ArtController extends Controller
     }
     public function store(Request $request)
     {
+
+        if(!isset($request->parameters['isCommission'])) {$request->request->add(['isCommission'],['false']);};//if there's no isCommission parameter then add it to request object thus it's possible to validate this field
+        if(!isset($request->parameters['isPlushie'])) {$request->request->add(['isPlushie'],['false']);};
         $data = request()->validate([
             'colors'=>['required','string'],
             'link'=>['required','string'],
@@ -24,11 +27,16 @@ class ArtController extends Controller
             'show'=>['required','string'],
             'fandom'=>['required','string'],
             'artType'=>['required','string'],
-            'year'=>['required','integer'],
-            'isPlushie'=>['required','boolean'],
-            'isCommission'=>['required','boolean']
+            'year'=>['required','string'],
+            'isPlushie'=>['nullable','string'],
+            'isCommission'=>['nullable','string']
 
         ]);
+        //------------------change types---------------
+        settype($data['year'], 'int');
+        settype($data['isPlushie'], 'bool');
+        settype($data['isCommission'], 'bool');
+        //------------------change types---------------
         Art::create($data);
         return redirect()->route('/home');
     }

@@ -29,9 +29,9 @@ function postImage (target) {//saves image to 'imgbb.com' server
       body.append('name', imgName.slice(0, imgName.lastIndexOf('.')));
       fetch('https://api.imgbb.com/1/upload?key=1e194d99cc989dab9340726349f27b2d', { method: 'POST', body })
         .then((res) => res.json()).then((res) => {
-            console.log(res);
             const colors = colorThief.getPalette(image);
             console.log(colors);
+            setColors(colors, colorsInput);//set array of colors as value 
             addPalettes(colors);
             button.removeAttribute("disabled")
             resultIsReady = true;
@@ -43,8 +43,11 @@ function postImage (target) {//saves image to 'imgbb.com' server
 
       }
   }
-
-
+  function setColors(colors,input) {
+    let result = '';
+    colors.forEach(color => result+=`[${color}] `);
+    input.value = result;
+  }
   function setLoader() {
     if(resultIsReady) {
         loader.classList.remove('lds-ring-show')

@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('art', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->year('year');
+            $table->integer('year');
             $table->string('characters');
             $table->string('show');
             $table->string('colors');
