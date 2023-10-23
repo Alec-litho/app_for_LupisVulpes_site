@@ -49,12 +49,18 @@ function postImage (target) {//saves image to 'imgbb.com' server
     colors.forEach(color => {
       const colorRGB = color.toString().trim();
       console.log(colorRGB);
-      fetch(`https://www.thecolorapi.com/scheme?rgb=${colorRGB}&mode=analogic&count=2`)
+      fetch(`https://www.thecolorapi.com/scheme?rgb=${colorRGB}&mode=analogic&count=2`,{headers:{
+        "Content-Type": "application/json"
+      }})
+        .then(response => response.json())
         .then(response => {
           const colorModel = {
             "originalShade": response.colors[0].hex.value,
-            "color": response.colors[0]
+            "baseColor": identifyBaseColor(response.colors[0].hsv),
+            "closeName": response.colors[0].name.value,
+            "closeShade": response.colors[0].name.closest_named_hex
           }
+          console.log(colorModel);
         })
     });
     input.value = result;
@@ -77,18 +83,20 @@ function postImage (target) {//saves image to 'imgbb.com' server
       palettesBody.appendChild(palette)
     })
   }
-function identifyOriginColor(hsv) {
+function identifyBaseColor(hsv) {
+  
+  let baseColor;
   if(hsv.s === 0 || hsv.s<10) {//integers are procents
     //then its either black or white
   if(hsv.v > 50) {/*white*/}
-    else //black
+  else {/*black*/}
   }
-  let hsvFormat = {
-    "h": hsv.h,
-    "s": 100,
-    "v": 100
-  }
-  const colors = {
+  // let hsvFormat = {
+  //   "h": hsv.h,
+  //   "s": 100,
+  //   "v": 100
+  // }
+  const baseColors = {
     "red": 0,//color : degree
     "orange": 25,
     "yellow": 50,
@@ -100,13 +108,17 @@ function identifyOriginColor(hsv) {
   }
   const degreeArr = [0, 25, 50, 100, 175, 235, 270, 310]
   degreeArr.forEach((degree, indx, arr) => {
-    if(hsvFormat.h===arr[0])
-    let prev = indx-1;
+    let curr = indx;
     let next = indx+1
-    if(hsvFormat.h>arr[prev] && hsvFormat.h<arr[next]) {
-      let firstNum = prev-hsvFormat.h;
-      let secondNum = hsvFormat.h-next;
-      let result = firstNum>secondNum? secondNum : firstNum //the number that is less than another number is result 
+    if(hsv.h>arr[curr] && hsv.h<arr[next]) {
+
+      let firstNum = hsv.h-arr[curr];
+      let secondNum = arr[next]-hsv.h;
+      let degree = firstNum>secondNum? arr[next] : arr[curr] //the number that is less than another number is result 
+      baseColor = Object.keys(baseColors).find(key => baseColors[key] === degree);
+      console.log(firstNum,secondNum);
     }
   })
+  console.log(hsv, baseColor);
+  return baseColor;
 }
