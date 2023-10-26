@@ -30,7 +30,6 @@ function postImage (target) {//saves image to 'imgbb.com' server
       fetch('https://api.imgbb.com/1/upload?key=1e194d99cc989dab9340726349f27b2d', { method: 'POST', body })
         .then((res) => res.json()).then((res) => {
             const colors = colorThief.getPalette(image);
-            console.log(colors);
             setColors(colors, colorsInput);//set array of colors as value 
             addPalettes(colors);
             button.removeAttribute("disabled")
@@ -39,10 +38,12 @@ function postImage (target) {//saves image to 'imgbb.com' server
             resultInp.value = res.data.url;
             setLoader()
         })
-    }
-
-      }
+    }}
   }
+
+
+
+
   function setColors(colors,input) {
 
     let result = '';
@@ -54,11 +55,13 @@ function postImage (target) {//saves image to 'imgbb.com' server
       }})
         .then(response => response.json())
         .then(response => {
+          let hsv = response.colors[0].hsv
           const colorModel = {
             "originalShade": response.colors[0].hex.value,
-            "baseColor": identifyBaseColor(response.colors[0].hsv),
+            "baseColor": identifyBaseColor(hsv),
             "closeName": response.colors[0].name.value,
-            "closeShade": response.colors[0].name.closest_named_hex
+            "closeShade": response.colors[0].name.closest_named_hex,
+            "hsv": [hsv.h,hsv.s,hsv.v]
           }
           console.log(colorModel);
         })
@@ -83,42 +86,36 @@ function postImage (target) {//saves image to 'imgbb.com' server
       palettesBody.appendChild(palette)
     })
   }
-function identifyBaseColor(hsv) {
-  
-  let baseColor;
-  if(hsv.s === 0 || hsv.s<10) {//integers are procents
-    //then its either black or white
-  if(hsv.v > 50) {/*white*/}
-  else {/*black*/}
-  }
-  // let hsvFormat = {
-  //   "h": hsv.h,
-  //   "s": 100,
-  //   "v": 100
-  // }
-  const baseColors = {
-    "red": 0,//color : degree
-    "orange": 25,
-    "yellow": 50,
-    "green": 100,
-    "blue": 175,
-    "dark-blue": 235,
-    "violet": 270,
-    "pink": 310
-  }
-  const degreeArr = [0, 25, 50, 100, 175, 235, 270, 310]
-  degreeArr.forEach((degree, indx, arr) => {
-    let curr = indx;
-    let next = indx+1
-    if(hsv.h>arr[curr] && hsv.h<arr[next]) {
 
-      let firstNum = hsv.h-arr[curr];
-      let secondNum = arr[next]-hsv.h;
-      let degree = firstNum>secondNum? arr[next] : arr[curr] //the number that is less than another number is result 
-      baseColor = Object.keys(baseColors).find(key => baseColors[key] === degree);
-      console.log(firstNum,secondNum);
+function identifyBaseColor(hsv) {
+  let resultColor;
+  if(hsv.s === 0) {//integers are procents
+    resultColor = "white/black"
+  } else {
+  const baseColors = {
+    "red": [[0,10],[346,360]],
+    "orange": [11,30],
+    "yellow": [31,50],
+    "green": [51,140],
+    "blue": [141,200],
+    "dark-blue": [201,240],
+    "violet": [241,280],
+    "pink": [281,345]
+  }
+
+  for (const [key, value] of Object.entries(baseColors)) {
+    if(Array.isArray(value[0])) {
+      value.forEach(colorArea => {
+        if(hsv.h>=colorArea[0] && hsv.h<=colorArea[1]) resultColor = key
+      })
+    } else {
+      if(hsv.h>=value[0] && hsv.h<=value[1]) {
+        resultColor = key
+      }
     }
-  })
-  console.log(hsv, baseColor);
-  return baseColor;
+  }
+  console.log(hsv,resultColor);
+  }
+  
+  return resultColor
 }

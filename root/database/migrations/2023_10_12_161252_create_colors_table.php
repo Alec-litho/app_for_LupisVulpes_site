@@ -6,25 +6,21 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('list_arts', function (Blueprint $table) {
+        Schema::create('colors', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->integer('year');
-            $table->text('characters');
-
+            $table->string("base_color"); 
+            $table->string("original_hue");
+            $table->string("close_hue_name");
+            $table->string("close_hue");
+            $table->string("hsv"); 
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('list_arts');
+        Schema::dropIfExists('colors');
     }
 };

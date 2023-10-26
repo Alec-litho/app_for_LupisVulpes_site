@@ -38,7 +38,7 @@ class ArtController extends Controller
         settype($data['isCommission'], 'bool');
         //------------------change types---------------
         Art::create($data);
-        return redirect()->route('/home');
+        // return redirect()->route('/home');
     }
     public function show(Art $art)
     {
