@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
 use App\Models\Color;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ColorController extends Controller
 {
@@ -26,15 +27,17 @@ class ColorController extends Controller
 
     public function store(Request $request)
     {
-        $data = request()->validate([
-            "originalHue"=>["required","string"],
-            "baseColor"=>["required","string"],
-            "closeHueName"=>["required","string"],
-            "closeHue"=>["required","string"],
-            "hsv"=>["required","string"],
-        ]);
-
-        Color::create($data);
+        return $request;
+        // $data = request()->validate([
+        //     "originalHue"=>["required","string"],
+        //     "baseColor"=>["required","string"],
+        //     "closeHueName"=>["required","string"],
+        //     "closeHue"=>["required","string"],
+        //     "hsv"=>["required","string"],
+        // ]);
+        // dd($data);
+        // $isExists = Color::find("originalHue",$data[0]);
+        // Color::create($data);
 
     }
 

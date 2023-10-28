@@ -1,15 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
+use App\Models\Color;
 use App\Models\Art;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ArtController extends Controller
 {
     public function index()
     {
-        //
+        dd(Art::all());
     }
     public function create()
     {
@@ -39,6 +41,10 @@ class ArtController extends Controller
         //------------------change types---------------
         Art::create($data);
         // return redirect()->route('/home');
+    }
+    public function colors()
+    {
+        return $this->belongsToMany(Color::class, 'colors_table', 'art_id', 'color_id');
     }
     public function show(Art $art)
     {

@@ -1,5 +1,6 @@
 const colorThief = new ColorThief();
 let resultIsReady = false;
+const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 const colorsInput = document.querySelector('.colors');
 const palettesBody = document.querySelector('.palettes');
 const loader = document.querySelector('#loader');
@@ -11,7 +12,7 @@ document.querySelector('.form-control').addEventListener('input', e => postImage
 resultInp.addEventListener('mousedown', e => {
     if(!resultIsReady) e.preventDefault();
 });
-
+console.log(token);
 
 function postImage (target) {//saves image to 'imgbb.com' server
   button.setAttribute("disabled",'');
@@ -63,7 +64,21 @@ function postImage (target) {//saves image to 'imgbb.com' server
             "closeShade": response.colors[0].name.closest_named_hex,
             "hsv": [hsv.h,hsv.s,hsv.v]
           }
-          console.log(colorModel);
+          return colorModel
+        })
+        .then(response => {
+          console.log( JSON.stringify(response));
+          fetch('http://localhost/app_for_lupisvulpes-site/root/public/color', {
+            headers: {
+              "Content-Type": "application/json",
+              "Accept": "application/json, text-plain, */*",
+              "X-Requested-With": "XMLHttpRequest",
+              "X-CSRF-TOKEN": token
+            },
+            method: 'post',
+            credentials: 'same-origin',
+            body: JSON.stringify(response)
+          }).then(res => console.log(res))
         })
     });
     input.value = result;
@@ -114,7 +129,6 @@ function identifyBaseColor(hsv) {
       }
     }
   }
-  console.log(hsv,resultColor);
   }
   
   return resultColor

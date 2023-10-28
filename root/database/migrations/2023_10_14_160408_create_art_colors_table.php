@@ -21,7 +21,7 @@ return new class extends Migration
             $table->index('art_id', 'art_color_color_idx');
 
             $table->foreign('art_id','art_color_art_fk')->on('colors')->references('id');
-            $table->foreign('color_id','art_color_color_fk')->on('arts')->references('id'); 
+            $table->foreign('color_id','art_color_color_fk')->on('art')->references('id'); 
         });
     }
 

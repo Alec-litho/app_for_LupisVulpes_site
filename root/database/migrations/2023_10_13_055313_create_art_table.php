@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('arts', function (Blueprint $table) {
+        Schema::create('art', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->integer('year');
@@ -27,6 +27,6 @@ return new class extends Migration
     }
     public function down(): void
     {
-        Schema::dropIfExists('art');
+        Schema::dropIfExists('arts');
     }
 };

@@ -24,7 +24,7 @@
 
             <div class="row d-flex justify-content-center">
                 <div class="col-6 ">
-                    <form action="{{route('art.store')}}" method="post" enctype="multipart/form-data" class="form">
+                    <form action="{{route('art.index')}}" method="post" enctype="multipart/form-data" class="form">
                       @csrf
                       <h5 for="formFile">{{__('Load Art')}}</h5> 
                         <x-imageInput required>
