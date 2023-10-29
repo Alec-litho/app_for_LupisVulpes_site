@@ -10,10 +10,10 @@ class Color extends Model
     use HasFactory;
 
     protected $fillable = [
-        "baseColor",
-        "originalHue",
-        "closeHueName",
-        "closeHue",
+        "base_color",
+        "original_hue",
+        "close_hue_name",
+        "close_hue",
         "hsv"
     ];
 };

@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Api\V1;
 use App\Models\Color;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\v1\StoreColorRequest;
+use App\Http\Resources\ColorResource;
 
 class ColorController extends Controller
 {
@@ -25,19 +28,18 @@ class ColorController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(StoreColorRequest $request)
     {
-        return $request;
-        // $data = request()->validate([
+        // $data = $request->validate([
         //     "originalHue"=>["required","string"],
         //     "baseColor"=>["required","string"],
         //     "closeHueName"=>["required","string"],
         //     "closeHue"=>["required","string"],
         //     "hsv"=>["required","string"],
         // ]);
-        // dd($data);
         // $isExists = Color::find("originalHue",$data[0]);
         // Color::create($data);
+        return new ColorResource(Color::create($request->all()));
 
     }
 

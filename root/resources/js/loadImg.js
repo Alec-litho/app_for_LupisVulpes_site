@@ -58,10 +58,10 @@ function postImage (target) {//saves image to 'imgbb.com' server
         .then(response => {
           let hsv = response.colors[0].hsv
           const colorModel = {
-            "originalShade": response.colors[0].hex.value,
-            "baseColor": identifyBaseColor(hsv),
-            "closeName": response.colors[0].name.value,
-            "closeShade": response.colors[0].name.closest_named_hex,
+            "original_hue": response.colors[0].hex.value,
+            "base_color": identifyBaseColor(hsv),
+            "close_hue_name": response.colors[0].name.value,
+            "close_hue": response.colors[0].name.closest_named_hex,
             "hsv": [hsv.h,hsv.s,hsv.v]
           }
           return colorModel
