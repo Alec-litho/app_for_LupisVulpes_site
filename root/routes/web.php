@@ -23,6 +23,7 @@ Route::post('/art', [artController::class, 'store'])->name('art.store');
 //--------------------------Color table--------------------------
 
 Route::post('/color',[ColorController::class, 'store'])->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class]);
+Route::post('/art/if_exists',[ArtController::class, 'checkIfExists'])->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class]);
 // Route::group(['prefix'=>'v1', 'namespace'=>'App\Http\Controllers\Api\V1'], function() {
 //     Route::apiResource('store', ColorController::class);
 // });

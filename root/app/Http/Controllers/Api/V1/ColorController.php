@@ -28,18 +28,16 @@ class ColorController extends Controller
     }
 
 
-    public function store(StoreColorRequest $request)
+    public function store(StoreColorRequest $request) 
     {
-        // $data = $request->validate([
-        //     "originalHue"=>["required","string"],
-        //     "baseColor"=>["required","string"],
-        //     "closeHueName"=>["required","string"],
-        //     "closeHue"=>["required","string"],
-        //     "hsv"=>["required","string"],
-        // ]);
-        // $isExists = Color::find("originalHue",$data[0]);
-        // Color::create($data);
-        return new ColorResource(Color::create($request->all()));
+        $originalHue = $request->all()["original_hue"];
+        $isExists = Color::where("original_hue", $originalHue)->first();
+        if(!$isExists) {
+            return new ColorResource(Color::create($request->all()));
+        } else {
+            return "Already exists";
+        }
+
 
     }
 

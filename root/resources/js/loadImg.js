@@ -46,8 +46,14 @@ function postImage (target) {//saves image to 'imgbb.com' server
 
 
   function setColors(colors,input) {
-
+    const colors = {data:[]};
     let result = '';
+    const headers = {
+      "Content-Type": "application/json",
+      "Accept": "application/json, text-plain, */*",
+      "X-Requested-With": "XMLHttpRequest",
+      "X-CSRF-TOKEN": token
+    };
     colors.forEach(color => {
       const colorRGB = color.toString().trim();
       console.log(colorRGB);
@@ -57,30 +63,24 @@ function postImage (target) {//saves image to 'imgbb.com' server
         .then(response => response.json())
         .then(response => {
           let hsv = response.colors[0].hsv
+        
           const colorModel = {
             "original_hue": response.colors[0].hex.value,
             "base_color": identifyBaseColor(hsv),
             "close_hue_name": response.colors[0].name.value,
             "close_hue": response.colors[0].name.closest_named_hex,
-            "hsv": [hsv.h,hsv.s,hsv.v]
+            "hsv": `${[hsv.h,hsv.s,hsv.v]}`
           }
           return colorModel
         })
         .then(response => {
-          console.log( JSON.stringify(response));
-          fetch('http://localhost/app_for_lupisvulpes-site/root/public/color', {
-            headers: {
-              "Content-Type": "application/json",
-              "Accept": "application/json, text-plain, */*",
-              "X-Requested-With": "XMLHttpRequest",
-              "X-CSRF-TOKEN": token
-            },
-            method: 'post',
-            credentials: 'same-origin',
-            body: JSON.stringify(response)
-          }).then(res => console.log(res))
+          fetch('http://localhost/app_for_lupisvulpes-site/root/public/color', {headers: headers,method: 'post',body: JSON.stringify(response) //credentials: same-origin
+          }).then(res => colors.push(res.data.id))
         })
     });
+    console.log(colors);
+    fetch('http://localhost/app_for_lupisvulpes-site/root/public/art/if_exists', {headers: headers,method: 'post',body: JSON.stringify(colors)
+  }).then(res => console.log(res))
     input.value = result;
   }
   function setLoader() {

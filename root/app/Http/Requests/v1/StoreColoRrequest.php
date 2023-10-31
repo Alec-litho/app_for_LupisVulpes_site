@@ -29,9 +29,4 @@ class StoreColorRequest extends FormRequest
             "hsv"=>["required","string"],
         ];
     }
-    protected function prepareForValidation() {//we need to transform request data so itd be fitting for storing in db
-        $this->merge([
-
-        ]);
-    }
 }

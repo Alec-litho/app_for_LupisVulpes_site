@@ -19,6 +19,7 @@ class Art extends Model
         'artType',
         'colors',
         'isPlushie',
-        'isCommission'
+        'isCommission',
+        'ids_for_test'
     ];
 }
