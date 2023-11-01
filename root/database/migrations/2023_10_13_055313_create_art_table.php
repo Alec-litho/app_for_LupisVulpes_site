@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('link');
             $table->boolean('is_plushie');
             $table->boolean('is_commission');
-            $table->string('ids_for_test');
+            $table->string('colors_ids');
             $table->unsignedBigInteger('color_id')->nullable();
             $table->index('color_id', 'art_colors_idx');
             $table->foreign('color_id', 'art_colors_fk')->on('colors')->references('id');

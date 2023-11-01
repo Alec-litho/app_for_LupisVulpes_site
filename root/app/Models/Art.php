@@ -16,10 +16,9 @@ class Art extends Model
         'characters',
         'fandom',
         'show',
-        'artType',
-        'colors',
-        'isPlushie',
-        'isCommission',
-        'ids_for_test'
+        'art_type',
+        'colors_ids',
+        'is_plushie',
+        'is_commission',
     ];
 }

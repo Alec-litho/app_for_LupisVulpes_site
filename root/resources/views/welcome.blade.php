@@ -24,7 +24,7 @@
 
             <div class="row d-flex justify-content-center">
                 <div class="col-6 ">
-                    <form action="{{route('art.index')}}" method="post" enctype="multipart/form-data" class="form">
+                    <form action="{{route('art.store')}}" method="post" enctype="multipart/form-data" class="form">
                       @csrf
                       <h5 for="formFile">{{__('Load Art')}}</h5> 
                         <x-imageInput required>
@@ -45,7 +45,7 @@
                         </div>
                         <div class="form-group">
                           <label for="tradOrdigit">{{__('Traditional or digital art')}}</label>
-                          <input name="artType" type="text" class="form-control" id="tradOrdigit" placeholder="{{__('traditional/digital')}}">
+                          <input name="art_type" type="text" class="form-control" id="tradOrdigit" placeholder="{{__('traditional/digital')}}">
                         </div>
                         <div class="form-group">
                           <label for="fandom">{{__('Fandom')}}</label>
@@ -54,11 +54,11 @@
                           <div class="form-group d-flex align-items-center gap-4">
                             <div class="cont d-flex  align-items-center gap-2">
                               <span class="fs-5" for="isCommision">{{__('isCommision')}}</span>
-                              <input name="isCommission" class="form-check-input" type="checkbox" value="true" id="isCommission">
+                              <input name="is_commission" class="form-check-input" type="checkbox" value="true" id="isCommission">
                             </div>
                             <div class="cont  d-flex align-items-center gap-2">
                               <span class="fs-5" for="isPlushie">{{__('isPlushie')}}</span>
-                              <input name="isPlushie" class="form-check-input" type="checkbox" value="true" id="isPlushie">
+                              <input name="is_plushie" class="form-check-input" type="checkbox" value="true" id="isPlushie">
                             </div>
                             
                         </div>
@@ -78,9 +78,7 @@
                             <option>2020</option>
                           </select>
                         </div>
-                        <div class="form-group">
-                          <input name="colors" type="text" class="colors">
-                        </div>
+                        <input class="colorsIds d-none" name="colors_ids"/>
                         <div class="btn w-100 d-flex justify-content-center">
                           <button type="submit" disabled class="btn btn-primary w-50 mt-2">Load Image</button>
                         </div>
@@ -97,6 +95,7 @@
         </div>
     </body>
     <script src="../resources/js/color-thief.umd.js"></script>
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script> --}}
     <script type="module" src="http://localhost/app_for_lupisvulpes-site/root/resources/js/loadImg.js"></script>
+    <script type="module" src="http://localhost/app_for_lupisvulpes-site/root/resources/js/identifyBaseColor.js"></script>
+    <script type="module" src="http://localhost/app_for_lupisvulpes-site/root/resources/js/setColors.js"></script>
 </html>

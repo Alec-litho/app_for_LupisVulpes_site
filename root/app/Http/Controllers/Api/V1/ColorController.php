@@ -33,9 +33,10 @@ class ColorController extends Controller
         $originalHue = $request->all()["original_hue"];
         $isExists = Color::where("original_hue", $originalHue)->first();
         if(!$isExists) {
-            return new ColorResource(Color::create($request->all()));
+            $color = new ColorResource(Color::create($request->all()));
+            return response()->json($color);
         } else {
-            return "Already exists";
+            return response()->json(["message"=>"already exists"]);
         }
 
 

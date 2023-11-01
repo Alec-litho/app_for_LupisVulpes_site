@@ -24,29 +24,29 @@ class ArtController extends Controller
         if(!isset($request->parameters['isCommission'])) {$request->request->add(['isCommission'],['false']);};//if there's no isCommission parameter then add it to request object thus it's possible to validate this field
         if(!isset($request->parameters['isPlushie'])) {$request->request->add(['isPlushie'],['false']);};
         $data = request()->validate([
-            'ids_for_test'=>['required','string'],//ids of colors
+            'colors_ids'=>['required','string'],
             'link'=>['required','string'],
             'characters'=>['required','string'],
             'show'=>['required','string'],
             'fandom'=>['required','string'],
-            'artType'=>['required','string'],
+            'art_type'=>['required','string'],
             'year'=>['required','string'],
-            'isPlushie'=>['nullable','string'],
-            'isCommission'=>['nullable','string'],
+            'is_plushie'=>['nullable','string'],
+            'is_commission'=>['nullable','string'],
         ]);
         //------------------change types---------------
         settype($data['year'], 'int');
-        settype($data['isPlushie'], 'bool');
-        settype($data['isCommission'], 'bool');
+        settype($data['is_plushie'], 'bool');
+        settype($data['is_commission'], 'bool');
         //------------------change types---------------
-        $colorsId = $data['ids_for_test'];
-        unset($data['ids_for_test']);
+        $colorsId = explode(',',$data['colors_ids']);
         $art = Art::create($data);
 
         foreach($colorsId as $colorId) {
-            ArtColor::firstOrCreate([
-                "art_id" => $art->id,
-                "color_id" => $colorId
+   
+            ArtColor::create([
+                "color_id" => $colorId,
+                "art_id" => $art->id
             ]);
         };
 
@@ -54,8 +54,8 @@ class ArtController extends Controller
     }
     public function checkIfExists(Request $request) {
         $ids = $request->all();//'11,12,13,14,15...'
-        $matchingArts = Art::where('ids_for_test', $ids)->get();
-        return $matchingArts;
+        $matchingArts = Art::where('colors_ids', $ids)->get();
+        return response()->json($matchingArts);
     }
     public function colors()
     {
