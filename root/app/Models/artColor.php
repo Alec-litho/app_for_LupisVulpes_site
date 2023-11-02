@@ -8,7 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class ArtColor extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'art_id',
-    ];
+    protected $guarded = [];
 }

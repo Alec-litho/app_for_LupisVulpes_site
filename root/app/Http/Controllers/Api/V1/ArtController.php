@@ -43,14 +43,14 @@ class ArtController extends Controller
         $art = Art::create($data);
 
         foreach($colorsId as $colorId) {
-   
-            ArtColor::create([
+
+            ArtColor::firstOrCreate([
                 "color_id" => $colorId,
                 "art_id" => $art->id
             ]);
         };
 
-        // return redirect()->route('/home');
+        return redirect()->route('/home');
     }
     public function checkIfExists(Request $request) {
         $ids = $request->all();//'11,12,13,14,15...'

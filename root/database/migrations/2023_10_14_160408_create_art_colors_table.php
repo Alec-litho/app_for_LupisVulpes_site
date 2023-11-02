@@ -14,14 +14,15 @@ return new class extends Migration
         Schema::create('art_colors', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->unsignedBigInteger('color_id');
+
             $table->unsignedBigInteger('art_id');
+            $table->unsignedBigInteger('color_id');
 
-            $table->index('art_id', 'art_color_art_idx');
-            $table->index('art_id', 'art_color_color_idx');
+            $table->index('art_id', 'art_colors_art_idx');
+            $table->index('color_id', 'art_colors_color_idx');
 
-            $table->foreign('art_id','art_color_art_fk')->on('colors')->references('id');
-            $table->foreign('color_id','art_color_color_fk')->on('art')->references('id'); 
+            $table->foreign('art_id','art_colors_art_fk')->references('id')->on('art');
+            $table->foreign('color_id','art_colors_color_fk')->references('id')->on('colors'); 
         });
     }
 

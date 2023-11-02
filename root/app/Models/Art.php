@@ -20,5 +20,6 @@ class Art extends Model
         'colors_ids',
         'is_plushie',
         'is_commission',
+        'color_id',
     ];
 }

@@ -14,6 +14,7 @@ resultInp.addEventListener('mousedown', e => {if(!resultIsReady) e.preventDefaul
 
 function postImage (target) {//saves image to 'imgbb.com' server
   button.setAttribute("disabled",'');
+  imgPreview.classList.add('loading')
   setLoader();
   const imgName = target.value.slice(12);
   const rf = new FileReader();
@@ -36,6 +37,7 @@ function postImage (target) {//saves image to 'imgbb.com' server
             button.removeAttribute("disabled")
             imgPreview.src = res.data.url;
             resultInp.value = res.data.url;
+            imgPreview.classList.remove('loading')
             setLoader();
           })
        })
