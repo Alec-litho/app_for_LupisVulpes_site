@@ -31,8 +31,9 @@ class ColorController extends Controller
     public function store(StoreColorRequest $request) 
     {
         $originalHue = $request->all()["original_hue"];
-        $isExists = Color::where("original_hue", $originalHue)->first();
-        if(!$isExists) {
+        $isExists = Color::where("original_hue", $originalHue)->get();
+        dd($isExists->original);// i need to get actual model 
+        if(!$isExists->exists) {
             $color = new ColorResource(Color::create($request->all()));
             return response()->json($color);
         } else {

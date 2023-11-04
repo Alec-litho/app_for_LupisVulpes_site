@@ -36,35 +36,64 @@
                           <h4 class="text-primary">Result: </h4>
                           <input name="link" type="text" class="form-control w-75 result" placeholder="{{__("result")}}">
                         </div>
+                        <div class="form-group d-flex align-items-center justify-content-center gap-4">
+                          <div class="cont d-flex  align-items-center gap-2">
+                            <span class="fs-5" for="isCommision">{{__('isCommision')}}</span>
+                            <input name="is_commission" class="form-check-input" type="checkbox" value="true" id="isCommission">
+                          </div>
+                          <div class="cont  d-flex align-items-center gap-2">
+                            <span class="fs-5" for="isPlushie">{{__('isPlushie')}}</span>
+                            <input name="is_plushie" class="form-check-input" type="checkbox" value="true" id="isPlushie">
+                          </div>
+                          <div class="cont  d-flex align-items-center gap-2">
+                            <span class="fs-5" for="isAnimationClip">{{__('isAnimationClip')}}</span>
+                            <input name="is_animation_clip" class="form-check-input" type="checkbox" value="true" id="animationClip">
+                          </div>
+                        </div>
                         <div class="form-group">
-                          <label for="exampleFormControlInput1">{{__('Characters')}}</label>
+                          <label for="exampleFormControlInput1" class="mb-1">{{__('Characters')}}</label>
                           <input name="characters" type="text" class="characters form-control" id="exampleFormControlInput1" placeholder="{{__('character1, character2')}}">
                         </div>
+                        <div class="race mt-2 mb-2 ">
+                          <div class="d-flex gap-2"><label for="race">Race</label><p class="text-secondary mb-1 user-select-none">(hold ctrl to pick multiple options)</p></div>
+                          <select multiple='' name="race[]" class="form-control" id="race">
+                            <option>wolf</option>
+                            <option>rabbit</option>
+                            <option>ferret</option>
+                            <option>human</option>
+                            <option>furry</option>
+                            <option>dragon</option>
+                            <option>pony</option>
+                          </select>
+                        </div>
+                        
                         <div class="form-group">
-                          <label for="showInp">{{__('Show')}}</label>
-                          <input name="show" type="text" class="form-control" id="showInp" placeholder="{{__('show')}}">
+                          <div class="d-flex gap-2"><label for="showInp">{{__('Show')}}</label><p class="text-secondary mb-1 user-select-none">(if it's not from a show, just skip it)</p></div>
+                          <select name="fandom" class="form-control" id="fandom">
+                            <option selected>none</option>
+                            <option>Audience</option>
+                            <option>Captain and His Crew</option>
+                            <option>Home grown dogs</option>
+                          </select>
                         </div>
                         <div class="form-group">
-                          <label for="tradOrdigit">{{__('Traditional or digital art')}}</label>
+                          <label for="tradOrdigit" class="mb-1">{{__('Traditional or digital art')}}</label>
                           <input name="art_type" type="text" class="form-control" id="tradOrdigit" placeholder="{{__('traditional/digital')}}">
                         </div>
                         <div class="form-group">
-                          <label for="fandom">{{__('Fandom')}}</label>
-                          <input name="fandom" type="text" class="form-control" id="fandom" placeholder="{{__('fandom')}}">
-                        </div>
-                          <div class="form-group d-flex align-items-center gap-4">
-                            <div class="cont d-flex  align-items-center gap-2">
-                              <span class="fs-5" for="isCommision">{{__('isCommision')}}</span>
-                              <input name="is_commission" class="form-check-input" type="checkbox" value="true" id="isCommission">
-                            </div>
-                            <div class="cont  d-flex align-items-center gap-2">
-                              <span class="fs-5" for="isPlushie">{{__('isPlushie')}}</span>
-                              <input name="is_plushie" class="form-check-input" type="checkbox" value="true" id="isPlushie">
-                            </div>
-                            
+                          <div class="d-flex gap-2"><label for="fandom" class="mb-1">{{__('Fandom')}}</label><p class="text-secondary mb-1 user-select-none">(if it's not from any fandom, just skip it)</p></div>
+                          <select name="fandom" class="form-control" id="fandom">
+                            <option selected>none</option>
+                            <option>Audience</option>
+                            <option>Captain and His Crew</option>
+                            <option>Portal</option>
+                            <option>Five nights at Freddie's</option>
+                            <option>My little pony</option>
+                            <option>Home grown dogs</option>
+                          </select>
                         </div>
                         <div class="form-group">
-                          <label for="exampleFormControlSelect1">{{__('Year')}}</label>
+                          <label for="exampleFormControlSelect1" class="mb-1">{{__('Year')}}</label>
                           <select name="year" class="form-control" id="exampleFormControlSelect1">
                             <option value="2010">2010</option>
                             <option>2011</option>
@@ -96,8 +125,8 @@
         </div>
     </body>
     <script src="../resources/js/color-thief.umd.js"></script>
+    <script type="module" src="http://localhost/app_for_lupisvulpes-site/root/resources/js/scripts.js"></script>
     <script type="module" src="http://localhost/app_for_lupisvulpes-site/root/resources/js/loadImg.js"></script>
     <script type="module" src="http://localhost/app_for_lupisvulpes-site/root/resources/js/identifyBaseColor.js"></script>
     <script type="module" src="http://localhost/app_for_lupisvulpes-site/root/resources/js/setColors.js"></script>
-    <script type="module" src="http://localhost/app_for_lupisvulpes-site/root/resources/js/characterInput.js"></script>
 </html>

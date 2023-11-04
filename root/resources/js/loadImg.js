@@ -40,6 +40,7 @@ function postImage (target) {//saves image to 'imgbb.com' server
             imgPreview.classList.remove('loading')
             setLoader();
           })
+          .catch(err => console.log(err))
        })
   }}
 }

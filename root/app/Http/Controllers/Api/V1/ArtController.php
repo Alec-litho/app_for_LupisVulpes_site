@@ -21,25 +21,33 @@ class ArtController extends Controller
     public function store(Request $request)
     {
 
-        if(!isset($request->parameters['isCommission'])) {$request->request->add(['isCommission'],['false']);};//if there's no isCommission parameter then add it to request object thus it's possible to validate this field
-        if(!isset($request->parameters['isPlushie'])) {$request->request->add(['isPlushie'],['false']);};
+        if(!isset($request->parameters['is_commission'])) {$request->request->add(['is_commission'],['false']);};//if there's no isCommission parameter then add it to request object thus it's possible to validate this field
+        if(!isset($request->parameters['is_plushie'])) {$request->request->add(['is_plushie'],['false']);};
+        if(!isset($request->parameters['is_animation_clip'])) {$request->request->add(['is_animation_clip'],['false']);};
+
         $data = request()->validate([
             'colors_ids'=>['required','string'],
             'link'=>['required','string'],
             'characters'=>['required','string'],
-            'show'=>['required','string'],
-            'fandom'=>['required','string'],
+            'race.*'=>['required','string'],
+            'show'=>['nullable','string'],
+            'fandom'=>['nullable','string'],
             'art_type'=>['required','string'],
             'year'=>['required','string'],
+            'is_animation_clip'=>['nullable','string'],
             'is_plushie'=>['nullable','string'],
             'is_commission'=>['nullable','string'],
         ]);
         //------------------change types---------------
         settype($data['year'], 'int');
+        settype($data['is_animation_clip'], 'bool');
         settype($data['is_plushie'], 'bool');
         settype($data['is_commission'], 'bool');
+
         //------------------change types---------------
+        $data['race'] = implode(",",$data['race']);
         $colorsId = explode(',',$data['colors_ids']);
+
         $art = Art::create($data);
 
         foreach($colorsId as $colorId) {

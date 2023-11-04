@@ -12,11 +12,13 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->integer('year');
+            $table->string('race');
             $table->string('characters');
             $table->string('show');
             $table->string('art_type'); 
             $table->string('fandom');
             $table->string('link');
+            $table->boolean('is_animation_clip');
             $table->boolean('is_plushie');
             $table->boolean('is_commission');
             $table->string('colors_ids');
