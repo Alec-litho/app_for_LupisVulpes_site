@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Models\Color;
 use Illuminate\Http\Request;
+use \Response;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\v1\StoreColorRequest;
 use App\Http\Resources\ColorResource;
+
 
 class ColorController extends Controller
 {
@@ -31,19 +33,20 @@ class ColorController extends Controller
     public function store(StoreColorRequest $request) 
     {
         $originalHue = $request->all()["original_hue"];
-        $isExists = Color::where("original_hue", $originalHue)->get();
-        dd($isExists->original);// i need to get actual model 
-        if(!$isExists->exists) {
-            $color = new ColorResource(Color::create($request->all()));
-            return response()->json($color);
+        $color = Color::where("original_hue", $originalHue)->first();
+        if(!$color) {
+            $newColor = new ColorResource(Color::create($request->all()));
+            return response()->json($newColor, 201);
         } else {
-            return response()->json(["message"=>"already exists"]);
+            return response()->json(['id' => $color->id], 200);
         }
-
-
     }
-
-
+    public function destroyLastColors() {
+        $lastId = Color::orderBy('id', 'desc')->first()->id;
+        for($i=0;$i<10;$i++) {
+            Color::where('id',$lastId-$i)->delete();
+        }
+    }
     public function show(Color $color)
     {
         //

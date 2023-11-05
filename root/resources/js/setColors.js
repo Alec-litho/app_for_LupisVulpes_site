@@ -27,12 +27,12 @@ async function storeColors(colors, headers) {
     const colorsIds = {data:[]};
     let result = await Promise.all(colors.map(async(color, indx, arr) => {//What i want to do is call Promise.all on the array returned by map in order to convert it to a single Promise before awaiting it.
         let colorObj = await createColorObj(color)
-        let colorId = await fetch('http://localhost/app_for_lupisvulpes-site/root/public/color', {headers: headers,method: 'post',body: JSON.stringify(colorObj)}).then(res=>res.json())//store obj and get its id
+        let colorId = await fetch('http://localhost/app_for_lupisvulpes-site/root/public/color', {headers: headers,method: 'post',body: JSON.stringify(colorObj)}).then(res=>res.json()).catch(err => console.log(err))//store obj and get its id
+        console.log(colorId);
         colorsIds.data.push(colorId)
         return colorId
       })
     )
-      console.log(result);
       return result
 }
 

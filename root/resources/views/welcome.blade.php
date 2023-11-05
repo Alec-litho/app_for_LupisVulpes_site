@@ -53,11 +53,14 @@
                         <div class="form-group">
                           <label for="exampleFormControlInput1" class="mb-1">{{__('Characters')}}</label>
                           <input name="characters" type="text" class="characters form-control" id="exampleFormControlInput1" placeholder="{{__('character1, character2')}}">
+                          @error('characters')
+                          <p class="text-danger">{{$message}}</p>
+                          @enderror
                         </div>
                         <div class="race mt-2 mb-2 ">
                           <div class="d-flex gap-2"><label for="race">Race</label><p class="text-secondary mb-1 user-select-none">(hold ctrl to pick multiple options)</p></div>
                           <select multiple='' name="race[]" class="form-control" id="race">
-                            <option>wolf</option>
+                            <option selected>wolf</option>
                             <option>rabbit</option>
                             <option>ferret</option>
                             <option>human</option>
@@ -69,7 +72,7 @@
                         
                         <div class="form-group">
                           <div class="d-flex gap-2"><label for="showInp">{{__('Show')}}</label><p class="text-secondary mb-1 user-select-none">(if it's not from a show, just skip it)</p></div>
-                          <select name="fandom" class="form-control" id="fandom">
+                          <select name="show" class="form-control" id="fandom">
                             <option selected>none</option>
                             <option>Audience</option>
                             <option>Captain and His Crew</option>
@@ -79,6 +82,9 @@
                         <div class="form-group">
                           <label for="tradOrdigit" class="mb-1">{{__('Traditional or digital art')}}</label>
                           <input name="art_type" type="text" class="form-control" id="tradOrdigit" placeholder="{{__('traditional/digital')}}">
+                          @error('art_type')
+                          <p class="text-danger">{{$message}}</p>
+                          @enderror
                         </div>
                         <div class="form-group">
                           <div class="d-flex gap-2"><label for="fandom" class="mb-1">{{__('Fandom')}}</label><p class="text-secondary mb-1 user-select-none">(if it's not from any fandom, just skip it)</p></div>
@@ -95,7 +101,7 @@
                         <div class="form-group">
                           <label for="exampleFormControlSelect1" class="mb-1">{{__('Year')}}</label>
                           <select name="year" class="form-control" id="exampleFormControlSelect1">
-                            <option value="2010">2010</option>
+                            <option selected>2010</option>
                             <option>2011</option>
                             <option>2012</option>
                             <option>2013</option>
@@ -109,8 +115,9 @@
                           </select>
                         </div>
                         <input class="colorsIds d-none" name="colors_ids"/>
-                        <div class="btn w-100 d-flex justify-content-center">
-                          <button type="submit" disabled class="btn btn-primary w-50 mt-2">Load Image</button>
+                        <div class="btn w-100 d-flex gap-3 justify-content-center mt-2">
+                          <button type="submit" disabled class="btn btn-primary w-50">Load Image</button>
+                          <button type="button" class="btn btn-danger w-25 d-none" id="btn-discard">Discard</button>
                         </div>
                        
                       </form>

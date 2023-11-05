@@ -7,7 +7,7 @@ use App\Models\Art;
 use App\Models\ArtColor;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use \Illuminate\Support\Facades\Validator;
 class ArtController extends Controller
 {
     public function index()
@@ -24,8 +24,8 @@ class ArtController extends Controller
         if(!isset($request->parameters['is_commission'])) {$request->request->add(['is_commission'],['false']);};//if there's no isCommission parameter then add it to request object thus it's possible to validate this field
         if(!isset($request->parameters['is_plushie'])) {$request->request->add(['is_plushie'],['false']);};
         if(!isset($request->parameters['is_animation_clip'])) {$request->request->add(['is_animation_clip'],['false']);};
-
-        $data = request()->validate([
+        $data= request()->all();
+        $validator = Validator::make(request()->all(), [
             'colors_ids'=>['required','string'],
             'link'=>['required','string'],
             'characters'=>['required','string'],
@@ -38,6 +38,7 @@ class ArtController extends Controller
             'is_plushie'=>['nullable','string'],
             'is_commission'=>['nullable','string'],
         ]);
+        if($validator->fails()) Color::destroyLastColors();
         //------------------change types---------------
         settype($data['year'], 'int');
         settype($data['is_animation_clip'], 'bool');
