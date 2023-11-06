@@ -13,17 +13,7 @@
     </head>
     <body class="antialiased">
         <div class="container mt-5">
-          @if ($errors->any()) 
-            <div class="d-flex flex-direction-column error">
-              <h1>Error:</h1>
-              @foreach ($errors->all() as $error) {
-                <h5>{{$error}}</h5>
-              }
-              @endforeach
-            </div>
-          @endif
-
-            <div class="row d-flex justify-content-center">
+            <div class="row d-flex position-relatve justify-content-center">
                 <div class="col-6 ">
                     <form action="{{route('art.store')}}" method="post" enctype="multipart/form-data" class="form">
                       @csrf
@@ -127,6 +117,14 @@
                   <div class="palettes">
                   </div>
                   <canvas class="canvas"></canvas>
+                </div>
+                <div class="artExists d-none">
+                  <div class="model">
+                    <h3>Art you tried to upload already exists in Database</h3>
+                    <img class="modelImg" src="" alt="">
+                    <div class="w-100 d-flex"><button class="btn btn-primary w-25" id="ok">Ok</button></div>
+                  </div>
+
                 </div>
             </div>
         </div>

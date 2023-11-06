@@ -1,5 +1,5 @@
 import setColors from "./setColors.js";
-import { toggleLoader, addPalettes, setClasses, removeClasses, setValues } from "./scripts.js";
+import { toggleLoader, addPalettes, setClasses, removeClasses, setValues, showModel } from "./scripts.js";
 const colorThief = new ColorThief();
 const colorsIdsInput = document.querySelector('.colorsIds');
 document.querySelector('.form-control').addEventListener('input', e => postImage(e.target));
@@ -32,7 +32,12 @@ function postImage (target) {//saves image to 'imgbb.com' server
             removeClasses();
             toggleLoader(resultIsReady);
           })
-          .catch(err => console.log(err))
+          .catch(art => {//already exists
+            resultIsReady = true
+            removeClasses();
+            toggleLoader(resultIsReady);
+            showModel(art.value[0])
+          })
        })
   }}
 }

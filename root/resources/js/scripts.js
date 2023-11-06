@@ -7,19 +7,33 @@ const imgPreview = document.querySelector('.imagePreview');
 const button = document.querySelector('button');
 const discardBTN = document.querySelector('#btn-discard');
 const resultInp = document.querySelector('.result');
+const inputs = document.querySelectorAll('input');
 resultInp.classList.add('user-select-none')
+const model = document.querySelector('.artExists');
+const modelImg = document.querySelector('.modelImg');
+const btnOk = document.querySelector('#ok').onclick= () => {
+    model.className = 'd-none';
+    location.reload();
+};
 discardBTN.onclick = discard;
 
+[...inputs].forEach(input => {
+        console.log(input.parentNode.childNodes[4]);
+        input.addEventListener('input', e => {//if theres an error text node  
+            if(input.parentNode.childNodes[4]) e.target.parentNode.childNodes[4].remove()
+        })
+})
 isPlushie.onchange = e => {
-    console.log(e);
     if(!tradOrDigit.value) {
         tradOrDigit.value = 'traditional';
-        tradOrDigit.setAttribute('disabled','disabled')
+        tradOrDigit.setAttribute('readonly','readonly');
+        tradOrDigit.className = 'form-control readonly';
     } else {
         tradOrDigit.value = '';
-        tradOrDigit.removeAttribute('disabled')
+        tradOrDigit.removeAttribute('readonly')
+        tradOrDigit.className = 'form-control';
     }
-
+    console.log(tradOrDigit.value);
 };
 export function toggleLoader(resultIsReady) {
     if(resultIsReady) {
@@ -53,7 +67,10 @@ export function setValues(res) {
     imgPreview.src = res.data.url;
     resultInp.value = res.data.url;
 }
-
+export function showModel(art) {
+    modelImg.setAttribute('src', art.link);
+    model.className = 'artExists'
+}
 function discard() {
     fetch('http://localhost/app_for_lupisvulpes-site/root/public/color/destroy_last',{ method: 'DELETE'});
     location.reload();

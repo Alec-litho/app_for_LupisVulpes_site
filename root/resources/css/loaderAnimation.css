@@ -50,3 +50,7 @@
   gap: 5px;
 }
 .colors {display: none;};
+.form-control .readonly {
+  background-color: rgb(138, 143, 160);
+  border: 1px solid #2950cf;
+}

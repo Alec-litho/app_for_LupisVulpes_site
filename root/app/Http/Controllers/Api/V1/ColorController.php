@@ -38,10 +38,10 @@ class ColorController extends Controller
             $newColor = new ColorResource(Color::create($request->all()));
             return response()->json($newColor, 201);
         } else {
-            return response()->json(['id' => $color->id], 200);
+            return response()->json(['id'=>$color->id], 200);
         }
     }
-    public function destroyLastColors() {
+    public static function destroyLastColors() {
         $lastId = Color::orderBy('id', 'desc')->first()->id;
         for($i=0;$i<10;$i++) {
             Color::where('id',$lastId-$i)->delete();

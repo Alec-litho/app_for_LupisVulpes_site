@@ -7,6 +7,7 @@ use App\Models\Art;
 use App\Models\ArtColor;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Api\V1\ColorController;
 use \Illuminate\Support\Facades\Validator;
 class ArtController extends Controller
 {
@@ -38,28 +39,32 @@ class ArtController extends Controller
             'is_plushie'=>['nullable','string'],
             'is_commission'=>['nullable','string'],
         ]);
-        if($validator->fails()) Color::destroyLastColors();
+        if($validator->fails()) {
+            ColorController::destroyLastColors();
+            return redirect()->route('/home')->withErrors($validator->errors());;
+        } else {
         //------------------change types---------------
-        settype($data['year'], 'int');
-        settype($data['is_animation_clip'], 'bool');
-        settype($data['is_plushie'], 'bool');
-        settype($data['is_commission'], 'bool');
+            settype($data['year'], 'int');
+            settype($data['is_animation_clip'], 'bool');
+            settype($data['is_plushie'], 'bool');
+            settype($data['is_commission'], 'bool');
 
         //------------------change types---------------
-        $data['race'] = implode(",",$data['race']);
-        $colorsId = explode(',',$data['colors_ids']);
+            $data['race'] = implode(",",$data['race']);
+            $colorsId = explode(',',$data['colors_ids']);
 
-        $art = Art::create($data);
+            $art = Art::create($data);
 
-        foreach($colorsId as $colorId) {
+            foreach($colorsId as $colorId) {
 
-            ArtColor::firstOrCreate([
-                "color_id" => $colorId,
-                "art_id" => $art->id
-            ]);
-        };
+                ArtColor::firstOrCreate([
+                    "color_id" => $colorId,
+                    "art_id" => $art->id
+                ]);
+            };
 
-        return redirect()->route('/home');
+            return redirect()->route('/home');
+        }
     }
     public function checkIfExists(Request $request) {
         $ids = $request->all();//'11,12,13,14,15...'
