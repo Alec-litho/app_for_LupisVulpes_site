@@ -47,5 +47,6 @@ async function createColorObj(color) {
       "close_hue": response.colors[0].name.closest_named_hex,
       "hsv": `${[hsv.h,hsv.s,hsv.v]}`
     };
+    console.log(colorModel);
     return colorModel;
 }
