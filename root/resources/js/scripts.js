@@ -72,6 +72,6 @@ export function showModel(art) {
     model.className = 'artExists'
 }
 function discard() {
-    fetch('http://localhost/app_for_lupisvulpes-site/root/public/color/destroy_last',{ method: 'DELETE'});
+    fetch('http://localhost/app_for_lupisvulpes-site/root/public/api/v1/color/destroy_last',{ method: 'DELETE'});
     location.reload();
 }

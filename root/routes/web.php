@@ -11,10 +11,11 @@ Route::get('/', function () {
 
 
 //-------------------------------------------------------------
-
-Route::get('/arts', [artController::class, 'index'])->name('art.index');
-Route::post('/art', [artController::class, 'store'])->name('art.store');
-Route::post('/art/if_exists',[ArtController::class, 'checkIfExists'])->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class]);
+Route::prefix('api/v1')->group(function() {
+    Route::get('/arts', [artController::class, 'index'])->name('art.index');
+    Route::post('/art', [artController::class, 'store'])->name('art.store');
+    Route::post('/art/if_exists',[ArtController::class, 'checkIfExists'])->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class]);
+});
 // Route::group(['prefix'=>'v1', 'namespace'=>'App\Http\Controllers\Api\V1'], function() {
 //     Route::apiResource('store', ArtController::class);
 // });
@@ -22,9 +23,11 @@ Route::post('/art/if_exists',[ArtController::class, 'checkIfExists'])->withoutMi
 
 
 //--------------------------Color table--------------------------
+Route::prefix('api/v1')->group(function() {
+    Route::post('/color',[ColorController::class, 'store'])->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class]);
+    Route::delete('/color/destroy_last',[ColorController::class, 'destroyLastColors'])->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class]);
+});
 
-Route::post('/color',[ColorController::class, 'store'])->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class]);
-Route::delete('/color/destroy_last',[ColorController::class, 'destroyLastColors'])->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class]);
 // Route::group(['prefix'=>'v1', 'namespace'=>'App\Http\Controllers\Api\V1'], function() {
 //     Route::apiResource('store', ColorController::class);
 // });
