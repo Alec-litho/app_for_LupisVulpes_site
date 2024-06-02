@@ -10,5 +10,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::prefix("/googledriveapi")->group(function() {
-    Route::get("/{id}", [AnimationController::class, "getAnimation"])->defaults("AuthorizedGoogleService",[AuthorizeGoogleService::class]);
+    Route::get("/animations/id/{id}", [AnimationController::class, "getAnimation"])->defaults("AuthorizedGoogleService",[AuthorizeGoogleService::class]);
+    Route::post("/animations/uploadAnimation", [AnimationController::class, "uploadAnimation"])->defaults("AuthorizedGoogleService",[AuthorizeGoogleService::class]);
+
 }); 

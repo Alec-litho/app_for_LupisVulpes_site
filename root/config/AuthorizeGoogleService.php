@@ -7,19 +7,19 @@ use Google\Service\Drive;
 
 class AuthorizeGoogleService
 {   
-    public Client $client;
-    
-    public function __construct()
-    {
+
+    public function authorizeClient(): Client {
         $client = self::setInitial();
         $token = self::getAccessToken($client);
         $client->setAccessToken($token);
-
+        return $client;
     }
 
     public function createService(): Drive
     {
-        $service = new Drive($this->client);
+        $client = $this->authorizeClient();
+        $shit = new Google_DriveService();
+        $service = new Drive($client);
         return $service;
     }
 

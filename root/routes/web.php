@@ -3,10 +3,15 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\ArtController;
 use App\Http\Controllers\Api\V1\ColorController;
+
+
 Route::get('/', function () {
     return view('welcome', ['colors'=>'colors']); 
 })->name('/home');
 
+Route::get('/animations', function () {
+    return view('animation'); 
+})->name('/animations');
 
 
 

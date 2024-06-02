@@ -8,7 +8,8 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="upload.php" method="post" enctype="multipart/form-data">
+    <form action="http://localhost/app_for_lupisvulpes-site/root/public/api/googledriveapi/animations/uploadAnimation" method="post" enctype="multipart/form-data">
+        @csrf 
         Select animation to upload:
         <input type="file" name="fileToUpload" id="fileToUpload">
         <input type="submit" value="Upload Animation" name="submit">
