@@ -9,8 +9,7 @@ use Root\Config\AuthorizeGoogleService;
 use Google\Service\Drive\DriveFile;
 use Google\Http\MediaFileUpload;
 use \Google_Service_Drive_DriveFile;
-use Psr\Http\Message\RequestInterface;
-
+use GuzzleHttp\Psr7\Request as Req;
 class AnimationController extends Controller
 {
     public function getAnimation(Request $request, Response $response, string $id, AuthorizeGoogleService $AuthorizedGoogleService) 
@@ -26,44 +25,26 @@ class AnimationController extends Controller
         $target_file=$_FILES["fileToUpload"];
 
         $authorizedGoogleService = new AuthorizeGoogleService();
-        // $reqBody = $req->getContent();
         $service = $authorizedGoogleService->createService();
-        $client = $authorizedGoogleService->authorizeClient();
-        $fileMetadata = new DriveFile();
-        $fileMetadata->setName($target_file["name"]);
-        // $fileMetadata->setParents(["Animations"]);
+        $response = $authorizedGoogleService->authorizeClient();
+        $client = $response["client"];
+        $requestData = $client->getHttpClient();
+        $file = new DriveFile();
+        $file->setName($target_file["name"]);
+        $file->parents = array("19siSP9hSbuEtQQh8BFCgUj2Go_h5iF2x");
         $chunkSizeBytes = 1 * 1024 * 1024;
-        $client->setDefer(true);
-
-        $request = $service->files->create($fileMetadata);
-        
+        $request = $service->files->create($file);
         $media = new \Google_Http_MediaFileUpload(
             $client,
             $request,
-            'text/plain',
+            $target_file["type"],
             null,
             true,
             $chunkSizeBytes
         );
-        $media->setFileSize(filesize($target_file));
+        $media->setFileSize($target_file["size"]);
     
-
-        $status = false;
-        $handle = fopen($target_file, "rb");
-        while (!$status && !feof($handle)) {
-            $chunk = readVideoChunk($handle, $chunkSizeBytes);
-            $status = $media->nextChunk($chunk);
-        }
-
-        $result = false;
-        if ($status != false) {
-            $result = $status;
-            dd("я ебал эту кантогору пидорасов");
-        }
-    
-        fclose($handle);
-    
-    function readVideoChunk($handle, $chunkSize)
+        function readVideoChunk($handle, $chunkSize)
     {
         $byteCount = 0;
         $giantChunk = "";
@@ -79,8 +60,18 @@ class AnimationController extends Controller
         }
         return $giantChunk;
     }
+        $status = false;
+        $handle = fopen($target_file["tmp_name"], "rb");
+        while (!$status && !feof($handle)) {
+            $chunk = readVideoChunk($handle, $chunkSizeBytes);
+            $status = $media->nextChunk($chunk);
+        }
 
-
+        dd($status);
+        fclose($handle);
+    
+    
+        //https://drive.google.com/file/d/1108CDJT8VgSxkLdidrwKL1eVom38rSer/view
     }
 }
 
